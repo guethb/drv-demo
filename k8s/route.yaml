@@ -1,0 +1,15 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: drv-demo
+  namespace: drv-demo
+  labels:
+    app: drv-demo
+spec:
+  host: app-drv-demo.apps.shared-410.openshift.redhatworkshops.io
+  to:
+    kind: Service
+    name: drv-demo
+    weight: 100
+  port:
+    targetPort: 8080-tcp

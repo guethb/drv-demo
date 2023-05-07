@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: drv-demo
+  namespace: drv-demo
+data:
+  SPEAKER: 'Bernhard Gueth'

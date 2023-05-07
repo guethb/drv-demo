@@ -1,0 +1,11 @@
+# node
+src/node_modules
+src/npm-debug.log
+
+# vsc
+.vscode/*
+.history/*
+
+# system
+.DS_Store
+Thumbs.db

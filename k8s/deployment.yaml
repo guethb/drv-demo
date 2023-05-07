@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"drv-demo-is:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"drv-demo-is\")].image"}]
+  name: drv-demo
+  namespace: drv-demo
+spec:
+  selector:
+    matchLabels:
+      app: drv-demo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: drv-demo
+    spec:
+      containers:
+        - name: drv-demo
+          envFrom:
+          - configMapRef:
+              name: drv-demo
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/drv-demo/drv-demo-is
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
